@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+// define o vetor gradiente
 float gradientes[] =
 {
 	4.229038e-01,
@@ -14,11 +15,15 @@ float gradientes[] =
 	-8.589670e-01,
 	-8.799527e-01
 };
+// tamanho do vetor gradiente
+// AVISO: só pode ser utilizado sizeof para vetores estáticos
 const int N = sizeof(gradientes) / sizeof(float);
+
 
 
 float samplePerlin(float x)
 {
+	// função que gera o perlin noise (na posição x) a partir da variavel global gradientes
 	int lo = (int)x;
 	int hi = lo + 1;
 	float dist = x - lo;
@@ -32,21 +37,19 @@ float samplePerlin(float x)
 
 int  main()
 {
-
+	// Imprimir o vetor gradiente
 	// int i;
 	// for (i = 0 ; i < N;i++){
 	// 	printf("%f\n", gradientes[i]);
 	// }
 
+	// Colocar curva em arquivo de texto
 	FILE *file;
 	file = fopen("curve.txt", "w+");
-
-
 	float x;
 	for (x = 0 ; x < N; x += 0.001f)
 	{
-			fprintf(file, "%f\n", samplePerlin(x));
-		// printf("%f\n", );
+		fprintf(file, "%f\n", samplePerlin(x));
 	}
 	fclose(file);
 	return 0;
